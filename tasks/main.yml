@@ -1,0 +1,11 @@
+- name: Create java user
+  user: name=javauser state=present home=/javaapp group=root
+- name: Create javaapp with correct permissions
+  file: name=/javaapp state=directory owner=javauser group=root mode=0777
+  remote_user: javauser
+- name: Copy The Application
+  copy:
+    src: jar/
+    dest: /javaapp/
+    owner: javauser
+    mode: 0777
